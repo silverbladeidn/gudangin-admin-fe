@@ -11,11 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.11.0",
-    "exceljs": "^4.4.0",
     "js-cookie": "^3.0.5",
-    "jsbarcode": "^3.12.1",
-    "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.5.25",
     "lucide-react": "^0.541.0",
     "react": "^19.1.1",
     "react-barcode": "^1.6.1",

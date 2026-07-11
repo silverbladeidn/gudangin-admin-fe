@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-// import ExcelJS from 'exceljs';
-// import { jsPDF } from 'jspdf';
-// import JsBarcode from 'jsbarcode';
-// import autoTable from 'jspdf-autotable';
 import {
     Plus,
     Archive,
@@ -22,42 +18,6 @@ import {
     X
 } from 'lucide-react';
 
-// Komponen Barcode unified menggunakan JsBarcode
-// const Barcode = ({ value, width = 100, height = 40 }) => {
-//     const canvasRef = React.useRef(null);
-
-//     React.useEffect(() => {
-//         if (canvasRef.current && value) {
-//             try {
-//                 JsBarcode(canvasRef.current, value, {
-//                     format: "CODE128",
-//                     width: 1.5,
-//                     height: 30,
-//                     displayValue: true,
-//                     fontSize: 10,
-//                     margin: 2,
-//                     background: "#ffffff",
-//                     lineColor: "#000000"
-//                 });
-//             } catch (error) {
-//                 console.error('Error generating barcode:', error);
-//                 // Fallback ke teks jika gagal
-//                 const ctx = canvasRef.current.getContext('2d');
-//                 ctx.fillStyle = 'white';
-//                 ctx.fillRect(0, 0, width, height);
-//                 ctx.fillStyle = 'black';
-//                 ctx.font = '10px Arial';
-//                 ctx.textAlign = 'center';
-//                 ctx.fillText(value || 'No SKU', width / 2, height / 2);
-//             }
-//         }
-//     }, [value, width, height]);
-
-//     if (!value) return <div className="text-xs text-gray-500">No SKU</div>;
-
-//     return <canvas ref={canvasRef} width={width} height={height} />;
-// };
-
 const Inventory = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [hovered, setHovered] = useState(null);
@@ -66,7 +26,6 @@ const Inventory = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-    const [barcodeSize, setBarcodeSize] = useState({ width: 100, height: 40 });
 
     // Sorting state
     const [sortField, setSortField] = useState('id');
@@ -81,12 +40,13 @@ const Inventory = () => {
         stockMax: ''
     });
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
     // Fungsi untuk mengambil data dari API
     const fetchProducts = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://127.0.0.1:8000/api/products');
+            const response = await axios.get(`${API_URL}/api/products`);
             console.log("API result:", response.data);
 
             // Jika pakai pagination
@@ -112,23 +72,6 @@ const Inventory = () => {
     // Panggil fetchProducts saat komponen dimount
     useEffect(() => {
         fetchProducts();
-    }, []);
-
-
-    // Effect untuk mengatur ukuran barcode
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 640) {
-                setBarcodeSize({ width: 80, height: 30 });
-            } else {
-                setBarcodeSize({ width: 100, height: 40 });
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Set initial size
-
-        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     // Sorting function
@@ -183,235 +126,6 @@ const Inventory = () => {
             }
         });
     };
-
-    // Ubah konfigurasi generateBarcodeDataURL
-    // const generateBarcodeDataURL = (text) => {
-    //     return new Promise((resolve, reject) => {
-    //         try {
-    //             if (!text) text = "DEFAULT";
-
-    //             const canvas = document.createElement('canvas');
-    //             canvas.width = 150;
-    //             canvas.height = 60;
-
-    //             // Bersihkan canvas
-    //             const ctx = canvas.getContext('2d');
-    //             ctx.fillStyle = '#FFFFFF';
-    //             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    //             JsBarcode(canvas, text, {
-    //                 format: "CODE128",
-    //                 width: 1.5,
-    //                 height: 30,
-    //                 displayValue: true, // Tampilkan teks SKU
-    //                 fontSize: 10,
-    //                 margin: 5,
-    //                 background: "#FFFFFF",
-    //                 lineColor: "#000000",
-    //                 textAlign: "center",
-    //                 textPosition: "bottom"
-    //             });
-
-    //             resolve(canvas.toDataURL('image/png', 1.0));
-    //         } catch (error) {
-    //             console.error('Error generating barcode:', error);
-    //             reject(error);
-    //         }
-    //     });
-    // };
-
-    // Export to Excel dengan barcode
-    // const exportToExcel = async () => {
-    //     try {
-    //         const workbook = new ExcelJS.Workbook();
-    //         const worksheet = workbook.addWorksheet('Inventory');
-
-    //         // Add headers
-    //         const headers = ['ID', 'Name', 'SKU', 'Barcode', 'Category', 'Stock', 'Price', 'Status'];
-    //         worksheet.addRow(headers);
-
-    //         // Style untuk header
-    //         worksheet.getRow(1).font = { bold: true };
-    //         worksheet.getRow(1).fill = {
-    //             type: 'pattern',
-    //             pattern: 'solid',
-    //             fgColor: { argb: 'FFE0E0E0' }
-    //         };
-
-    //         // Add data dengan barcode images
-    //         for (const item of filteredItems) {
-    //             const barcodeDataUrl = await generateBarcodeDataURL(item.sku || "DEFAULT");
-
-    //             // Konversi data URL ke buffer untuk Excel
-    //             const base64Data = barcodeDataUrl.replace(/^data:image\/png;base64,/, '');
-    //             const imageId = workbook.addImage({
-    //                 base64: base64Data,
-    //                 extension: 'png',
-    //             });
-
-    //             const row = worksheet.addRow([
-    //                 item.id,
-    //                 item.name,
-    //                 item.sku,
-    //                 '', // Placeholder untuk barcode image
-    //                 item.category?.name || 'No Category',
-    //                 item.stock_quantity,
-    //                 item.price,
-    //                 item.status
-    //             ]);
-
-    //             // Set row height untuk barcode
-    //             row.height = 50;
-
-    //             // Add barcode image
-    //             worksheet.addImage(imageId, {
-    //                 tl: { col: 3, row: row.number - 1 }, // Kolom D (index 3)
-    //                 ext: { width: 120, height: 40 }
-    //             });
-    //         }
-
-    //         // Set column widths
-    //         worksheet.columns = [
-    //             { width: 10 }, // ID
-    //             { width: 30 }, // Name
-    //             { width: 20 }, // SKU
-    //             { width: 20 }, // Barcode
-    //             { width: 20 }, // Category
-    //             { width: 15 }, // Stock
-    //             { width: 15 }, // Price
-    //             { width: 15 }  // Status
-    //         ];
-
-    //         // Generate and download
-    //         const buffer = await workbook.xlsx.writeBuffer();
-    //         const blob = new Blob([buffer], {
-    //             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    //         });
-
-    //         const link = document.createElement('a');
-    //         const url = URL.createObjectURL(blob);
-    //         link.setAttribute('href', url);
-    //         link.setAttribute('download', `inventory_${new Date().toISOString().slice(0, 10)}.xlsx`);
-    //         link.style.visibility = 'hidden';
-    //         document.body.appendChild(link);
-    //         link.click();
-    //         document.body.removeChild(link);
-    //         URL.revokeObjectURL(url);
-    //     } catch (error) {
-    //         console.error('Error exporting to Excel:', error);
-    //         alert('Failed to export Excel file');
-    //     }
-    // };
-
-    // Export to PDF dengan barcode images
-    // const exportToPDF = async () => {
-    //     try {
-    //         const doc = new jsPDF();
-
-    //         // Title
-    //         doc.setFontSize(18);
-    //         doc.setFont('helvetica', 'bold');
-    //         doc.text('Inventory Report', 14, 20);
-
-    //         // Date
-    //         doc.setFontSize(10);
-    //         doc.setFont('helvetica', 'normal');
-    //         doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 30);
-
-    //         const tableColumns = ['ID', 'Name', 'SKU', 'Barcode', 'Category', 'Stock', 'Price', 'Status'];
-
-    //         const tableRows = [];
-    //         for (const item of filteredItems) {
-    //             try {
-    //                 const barcodeDataUrl = await generateBarcodeDataURL(item.sku);
-    //                 tableRows.push([
-    //                     item.id,
-    //                     item.name,
-    //                     item.sku,
-    //                     { content: barcodeDataUrl, type: 'IMAGE' }, // Hanya satu barcode
-    //                     item.category?.name || 'No Category',
-    //                     item.stock_quantity,
-    //                     formatPrice(item.price),
-    //                     item.status
-    //                 ]);
-    //             } catch (error) {
-    //                 console.error('Error generating barcode:', error);
-    //                 tableRows.push([
-    //                     item.id,
-    //                     item.name,
-    //                     item.sku,
-    //                     'Barcode Error', // Fallback jika error
-    //                     item.category?.name || 'No Category',
-    //                     item.stock_quantity,
-    //                     formatPrice(item.price),
-    //                     item.status
-    //                 ]);
-    //             }
-    //         }
-
-    //         // Konfigurasi tabel
-    //         autoTable(doc, {
-    //             head: [tableColumns],
-    //             body: tableRows,
-    //             startY: 40,
-    //             styles: {
-    //                 fontSize: 8,
-    //                 cellPadding: 2,
-    //                 minCellHeight: 30,
-    //                 fillColor: '#FFFFFF', // Tambahkan background putih untuk sel
-    //                 lineColor: '#000000'
-    //             },
-    //             headStyles: {
-    //                 fillColor: [230, 230, 250],
-    //                 textColor: [0, 0, 0],
-    //                 fontStyle: 'bold'
-    //             },
-    //             alternateRowStyles: {
-    //                 fillColor: [245, 245, 245]
-    //             },
-    //             columnStyles: {
-    //                 0: { cellWidth: 15 },  // ID
-    //                 1: { cellWidth: 35 },  // Name
-    //                 2: { cellWidth: 25 },  // SKU
-    //                 3: { cellWidth: 40, fillColor: '#FFFFFF' },  // Barcode - sesuaikan lebar
-    //                 4: { cellWidth: 25 },  // Category
-    //                 5: { cellWidth: 15 },  // Stock
-    //                 6: { cellWidth: 20 },  // Price
-    //                 7: { cellWidth: 20 }   // Status
-    //             },
-    //             didDrawCell: (data) => {
-    //                 if (data.column.index === 3 && data.cell.raw?.type === 'IMAGE') {
-    //                     try {
-    //                         const img = data.cell.raw.content;
-
-    //                         // Posisikan barcode di tengah cell
-    //                         const x = data.cell.x + (data.cell.width - 35) / 2;
-    //                         const y = data.cell.y + 5;
-    //                         const width = 35;
-    //                         const height = 20;
-
-    //                         // Tambahkan background putih
-    //                         doc.setFillColor(255, 255, 255);
-    //                         doc.rect(data.cell.x, data.cell.y, data.cell.width, data.cell.height, 'F');
-
-    //                         // Tambahkan barcode
-    //                         doc.addImage(img, 'PNG', x, y, width, height);
-    //                     } catch (error) {
-    //                         console.error('Error adding barcode to PDF:', error);
-    //                         doc.setFontSize(8);
-    //                         doc.text('Barcode Error', data.cell.x + 2, data.cell.y + 5);
-    //                     }
-    //                 }
-    //             }
-    //         });
-
-    //         // Save PDF
-    //         doc.save(`inventory_${new Date().toISOString().slice(0, 10)}.pdf`);
-    //     } catch (error) {
-    //         console.error('Error exporting to PDF:', error);
-    //         alert('Failed to export PDF file');
-    //     }
-    // };
 
     // Clear all filters
     const clearFilters = () => {
@@ -499,7 +213,7 @@ const Inventory = () => {
                 setInventoryItems(inventoryItems.filter(item => item.id !== productId));
 
                 // Panggil API
-                await axios.delete(`http://127.0.0.1:8000/api/products/${productId}`);
+                await axios.delete(`${API_URL}/api/products/${productId}`);
 
             } catch (error) {
                 // Jika gagal, kembalikan state ke sebelumnya
@@ -552,7 +266,7 @@ const Inventory = () => {
                     <p className="text-gray-600 mt-1">Tempat mengatur segala jumlah barang dan jenis barang di penyimpanan.</p>
                 </div>
                 <Link
-                    to="/inventory/add" // sesuaikan dengan route path Anda
+                    to="/inventory/add"
                     className="flex items-center px-4 py-2 bg-green-600 text-white rounded-xl hover:shadow-lg transition-all duration-200 transform hover:scale-105 no-underline"
                 >
                     <Plus className="w-4 h-4 mr-2" />
@@ -597,22 +311,6 @@ const Inventory = () => {
                                 <Filter className="w-4 h-4 mr-2" />
                                 Filter Lanjutan
                             </button>
-{/* 
-                            <button
-                                onClick={exportToExcel}
-                                className="flex items-center px-4 py-2 bg-green-600 border border-green-300 rounded-xl hover:bg-green-400 transition-colors"
-                            >
-                                <FileSpreadsheet className="w-4 h-4 mr-2" />
-                                Ekspor ke Excel
-                            </button> */}
-
-                            {/* <button
-                                onClick={exportToPDF}
-                                className="flex items-center px-4 py-2 bg-red-600 border border-red-300 rounded-xl hover:bg-red-400 transition-colors"
-                            >
-                                <File className="w-4 h-4 mr-2" />
-                                Ekspor ke PDF
-                            </button> */}
                         </div>
                     </div>
 
@@ -808,17 +506,23 @@ const Inventory = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    {/* <td className="px-1 py-1 whitespace-nowrap text-sm text-gray-900">
-                                        <div className="flex flex-col">
-                                            <div className="barcode-container">
-                                                <Barcode
-                                                    value={item.sku || "DEFAULT"}
-                                                    width={barcodeSize.width}
-                                                    height={barcodeSize.height}
-                                                />
-                                            </div>
+                                    <td className="px-1 py-1 whitespace-nowrap text-sm text-gray-900">
+                                        <div className="flex flex-col items-center">
+                                            {item.sku ? (
+                                                <>
+                                                    <img
+                                                        src={`${API_URL}/api/products/${item.id}/barcode`}
+                                                        alt={`Barcode ${item.sku}`}
+                                                        className="h-10"
+                                                        onError={(e) => { e.target.style.display = 'none'; }}
+                                                    />
+                                                    <span className="text-xs text-gray-500 mt-1">{item.sku}</span>
+                                                </>
+                                            ) : (
+                                                <span className="text-xs text-gray-500">No SKU</span>
+                                            )}
                                         </div>
-                                    </td> */}
+                                    </td>
                                     <td className="px-1 py-2 whitespace-nowrap">
                                         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                             {item.category?.name ?? "No Category"}
