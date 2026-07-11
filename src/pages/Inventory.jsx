@@ -185,40 +185,40 @@ const Inventory = () => {
     };
 
     // Ubah konfigurasi generateBarcodeDataURL
-    const generateBarcodeDataURL = (text) => {
-        return new Promise((resolve, reject) => {
-            try {
-                if (!text) text = "DEFAULT";
+    // const generateBarcodeDataURL = (text) => {
+    //     return new Promise((resolve, reject) => {
+    //         try {
+    //             if (!text) text = "DEFAULT";
 
-                const canvas = document.createElement('canvas');
-                canvas.width = 150;
-                canvas.height = 60;
+    //             const canvas = document.createElement('canvas');
+    //             canvas.width = 150;
+    //             canvas.height = 60;
 
-                // Bersihkan canvas
-                const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //             // Bersihkan canvas
+    //             const ctx = canvas.getContext('2d');
+    //             ctx.fillStyle = '#FFFFFF';
+    //             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                JsBarcode(canvas, text, {
-                    format: "CODE128",
-                    width: 1.5,
-                    height: 30,
-                    displayValue: true, // Tampilkan teks SKU
-                    fontSize: 10,
-                    margin: 5,
-                    background: "#FFFFFF",
-                    lineColor: "#000000",
-                    textAlign: "center",
-                    textPosition: "bottom"
-                });
+    //             JsBarcode(canvas, text, {
+    //                 format: "CODE128",
+    //                 width: 1.5,
+    //                 height: 30,
+    //                 displayValue: true, // Tampilkan teks SKU
+    //                 fontSize: 10,
+    //                 margin: 5,
+    //                 background: "#FFFFFF",
+    //                 lineColor: "#000000",
+    //                 textAlign: "center",
+    //                 textPosition: "bottom"
+    //             });
 
-                resolve(canvas.toDataURL('image/png', 1.0));
-            } catch (error) {
-                console.error('Error generating barcode:', error);
-                reject(error);
-            }
-        });
-    };
+    //             resolve(canvas.toDataURL('image/png', 1.0));
+    //         } catch (error) {
+    //             console.error('Error generating barcode:', error);
+    //             reject(error);
+    //         }
+    //     });
+    // };
 
     // Export to Excel dengan barcode
     // const exportToExcel = async () => {
@@ -808,7 +808,7 @@ const Inventory = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-1 py-1 whitespace-nowrap text-sm text-gray-900">
+                                    {/* <td className="px-1 py-1 whitespace-nowrap text-sm text-gray-900">
                                         <div className="flex flex-col">
                                             <div className="barcode-container">
                                                 <Barcode
@@ -818,7 +818,7 @@ const Inventory = () => {
                                                 />
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> */}
                                     <td className="px-1 py-2 whitespace-nowrap">
                                         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                             {item.category?.name ?? "No Category"}
