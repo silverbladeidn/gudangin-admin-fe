@@ -509,7 +509,7 @@ const Inventory = () => {
                                             {item.sku ? (
                                                 <>
                                                     <img
-                                                        src={`${API_URL}/products/${item.id}/barcode`}
+                                                        src={`${API_URL}/products/${item.id}/barcode?ngrok-skip-browser-warning=true`}
                                                         alt={`Barcode ${item.sku}`}
                                                         className="h-10"
                                                         onError={(e) => { e.target.style.display = 'none'; }}
