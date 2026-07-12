@@ -46,7 +46,7 @@ const Inventory = () => {
     const fetchProducts = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`${API_URL}/api/products`);
+            const response = await axios.get(`${API_URL}/products`);
             console.log("API result:", response.data);
 
             // Jika pakai pagination
@@ -213,7 +213,7 @@ const Inventory = () => {
                 setInventoryItems(inventoryItems.filter(item => item.id !== productId));
 
                 // Panggil API
-                await axios.delete(`${API_URL}/api/products/${productId}`);
+                await axios.delete(`${API_URL}/products/${productId}`);
 
             } catch (error) {
                 // Jika gagal, kembalikan state ke sebelumnya
@@ -511,7 +511,7 @@ const Inventory = () => {
                                             {item.sku ? (
                                                 <>
                                                     <img
-                                                        src={`${API_URL}/api/products/${item.id}/barcode`}
+                                                        src={`${API_URL}/products/${item.id}/barcode`}
                                                         alt={`Barcode ${item.sku}`}
                                                         className="h-10"
                                                         onError={(e) => { e.target.style.display = 'none'; }}
