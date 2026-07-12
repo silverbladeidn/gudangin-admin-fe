@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api, { API_URL } from '../api/axios';
 import {
     Plus,
     Archive,
@@ -40,13 +40,11 @@ const Inventory = () => {
         stockMax: ''
     });
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-
     // Fungsi untuk mengambil data dari API
     const fetchProducts = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`${API_URL}/products`);
+            const response = await api.get('/products');
             console.log("API result:", response.data);
 
             // Jika pakai pagination
@@ -213,7 +211,7 @@ const Inventory = () => {
                 setInventoryItems(inventoryItems.filter(item => item.id !== productId));
 
                 // Panggil API
-                await axios.delete(`${API_URL}/products/${productId}`);
+                await api.delete(`/products/${productId}`);
 
             } catch (error) {
                 // Jika gagal, kembalikan state ke sebelumnya
