@@ -59,7 +59,7 @@ const Login = () => {
     setErrors({});
 
     try {
-      const { data } = await api.post("/api/login", {
+      const { data } = await api.post("/login", {
         email: formData.email,
         password: formData.password,
         remember: formData.remember,
