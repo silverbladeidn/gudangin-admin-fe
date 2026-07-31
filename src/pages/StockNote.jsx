@@ -43,7 +43,7 @@ const StockNote = () => {
     const fetchStockNotes = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://backend.goodong.id/api/stockmovement');
+            const response = await axios.get('https://backend.goodong.id/api/stockmovement');
             console.log("API result:", response.data);
 
             // Ambil array stock movements

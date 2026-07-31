@@ -7,7 +7,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import axios from 'axios';
 
 // Configure axios defaults untuk environment Anda
-axios.defaults.baseURL = 'http://backend.goodong.id';
+axios.defaults.baseURL = 'https://backend.goodong.id';
 axios.defaults.timeout = 55000; // Increase timeout to 15 seconds
 
 // Add interceptors untuk handle auth dan error

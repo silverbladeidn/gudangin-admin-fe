@@ -59,7 +59,7 @@ const ApprovalNote = () => {
             if (filterStatus !== 'all') params.status = filterStatus;
             if (searchQuery.trim()) params.search = searchQuery.trim();
 
-            const response = await axios.get(`http://backend.goodong.id/api/approval-lists`, {
+            const response = await axios.get(`https://backend.goodong.id/api/approval-lists`, {
                 params,
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -252,7 +252,7 @@ const ApprovalNote = () => {
             const token = localStorage.getItem('auth_token') || localStorage.getItem('token');
 
             const response = await axios.post(
-                `http://backend.goodong.id/api/item-requests/${requestId}/approve`,
+                `https://backend.goodong.id/api/item-requests/${requestId}/approve`,
                 {},
                 {
                     headers: {
@@ -281,7 +281,7 @@ const ApprovalNote = () => {
             const token = localStorage.getItem('auth_token') || localStorage.getItem('token');
 
             const response = await axios.post(
-                `http://backend.goodong.id/api/item-requests/${requestId}/partial-approve`,
+                `https://backend.goodong.id/api/item-requests/${requestId}/partial-approve`,
                 {},
                 {
                     headers: {
@@ -312,7 +312,7 @@ const ApprovalNote = () => {
             const note = prompt('Masukkan alasan penolakan:') || 'Request ditolak';
 
             const response = await axios.post(
-                `http://backend.goodong.id/api/item-requests/${requestId}/reject`,
+                `https://backend.goodong.id/api/item-requests/${requestId}/reject`,
                 {
                     note: note // Sesuai dengan input('note') di backend
                 },

@@ -7,7 +7,7 @@ import RecentActivity from "../components/Dashboard/RecentActivity";
 import ChartWidget from "../components/Dashboard/ChartWidget";
 
 // === Axios Setup ===
-axios.defaults.baseURL = "http://backend.goodong.id";
+axios.defaults.baseURL = "https://backend.goodong.id";
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("auth_token");
   if (token) config.headers.Authorization = `Bearer ${token}`;

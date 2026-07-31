@@ -21,7 +21,7 @@ const EmailSettings = () => {
         error: ''
     });
 
-    const API_BASE_URL = 'http://backend.goodong.id/api';
+    const API_BASE_URL = 'https://backend.goodong.id/api';
 
     useEffect(() => {
         fetchEmailSettings();

@@ -55,7 +55,7 @@ const UpdateInventory = () => {
             setLoading(true);
             const token = localStorage.getItem('auth_token');
 
-            const response = await fetch(`http://backend.goodong.id/api/products/${id}`, {
+            const response = await fetch(`https://backend.goodong.id/api/products/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -99,7 +99,7 @@ const UpdateInventory = () => {
             if (product.images) {
                 const imageUrl = product.images.startsWith('http')
                     ? product.images
-                    : `http://backend.goodong.id/storage/${product.images}`;
+                    : `https://backend.goodong.id/storage/${product.images}`;
                 setCurrentImage(imageUrl);
                 setImagePreview(imageUrl);
             }
@@ -120,7 +120,7 @@ const UpdateInventory = () => {
             setLoadingCategories(true);
             const token = localStorage.getItem('auth_token');
 
-            const response = await fetch('http://backend.goodong.id/api/categories', {
+            const response = await fetch('https://backend.goodong.id/api/categories', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -135,7 +135,7 @@ const UpdateInventory = () => {
                     return;
                 }
                 // Try fallback endpoint
-                const fallbackResponse = await fetch('http://backend.goodong.id/api/products/categories', {
+                const fallbackResponse = await fetch('https://backend.goodong.id/api/products/categories', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -296,7 +296,7 @@ const UpdateInventory = () => {
                 console.log(`${key}:`, value);
             }
 
-            const response = await fetch(`http://backend.goodong.id/api/products/${id}`, {
+            const response = await fetch(`https://backend.goodong.id/api/products/${id}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

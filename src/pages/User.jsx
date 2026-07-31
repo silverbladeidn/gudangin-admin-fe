@@ -27,7 +27,7 @@ const Users = () => {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://backend.goodong.id/api/users');
+            const response = await axios.get('https://backend.goodong.id/api/users');
 
             if (response.data && response.data.success) {
                 const usersData = response.data.data || [];
@@ -106,7 +106,7 @@ const Users = () => {
                 setUsers(users.filter(user => user.id !== userId));
 
                 // Panggil API
-                await axios.delete(`http://backend.goodong.id/api/users/${userId}`);
+                await axios.delete(`https://backend.goodong.id/api/users/${userId}`);
 
             } catch (error) {
                 // Jika gagal, kembalikan state ke sebelumnya
@@ -146,7 +146,7 @@ const Users = () => {
                 ));
 
                 // Panggil API dengan data yang sesuai backend
-                const response = await axios.patch(`http://backend.goodong.id/api/users/${userId}/block-status`, {
+                const response = await axios.patch(`https://backend.goodong.id/api/users/${userId}/block-status`, {
                     is_blocked: newBlockStatus
                 });
 

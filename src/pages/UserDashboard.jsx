@@ -32,7 +32,7 @@ import {
 import axios from 'axios';
 
 // ==== Axios Config ====
-axios.defaults.baseURL = 'http://backend.goodong.id';
+axios.defaults.baseURL = 'https://backend.goodong.id';
 axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('auth_token');
     if (token) {

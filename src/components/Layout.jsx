@@ -146,7 +146,7 @@ const Layout = ({ children }) => {
     const handleLogout = async () => {
         try {
             const token = localStorage.getItem('auth_token');
-            await axios.post('http://backend.goodong.id/api/logout', {}, {
+            await axios.post('https://backend.goodong.id/api/logout', {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

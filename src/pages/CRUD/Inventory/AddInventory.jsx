@@ -31,7 +31,7 @@ const AddInventory = () => {
     const fetchCategories = async () => {
         try {
             setLoadingCategories(true);
-            const response = await axios.get('http://backend.goodong.id/api/categories');
+            const response = await axios.get('https://backend.goodong.id/api/categories');
             const categoriesData = response.data?.data || response.data || [];
             setCategories(categoriesData);
         } catch (error) {
@@ -116,7 +116,7 @@ const AddInventory = () => {
             console.log('🔐 Token:', token);
 
             // TEST DENGAN URL LANGSUNG
-            const response = await fetch('http://backend.goodong.id/api/products', {
+            const response = await fetch('https://backend.goodong.id/api/products', {
                 method: 'POST',
                 body: data,
                 headers: {

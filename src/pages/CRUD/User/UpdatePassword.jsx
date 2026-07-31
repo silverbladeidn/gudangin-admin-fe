@@ -91,7 +91,7 @@ const UpdatePassword = () => {
             console.log('Data:', formData);
 
             const response = await axios.post(
-                `http://backend.goodong.id/api/users/${id}/change-password`,
+                `https://backend.goodong.id/api/users/${id}/change-password`,
                 formData,
                 {
                     headers: {

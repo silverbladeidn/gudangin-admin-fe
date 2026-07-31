@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CheckCircle, AlertTriangle, Info, Loader, RefreshCw } from 'lucide-react';
 import axios from 'axios';
 // Configure axios defaults
-axios.defaults.baseURL = 'http://backend.goodong.id';
+axios.defaults.baseURL = 'https://backend.goodong.id';
 
 // Add token to all requests if available
 axios.interceptors.request.use((config) => {
@@ -35,7 +35,7 @@ const RecentActivity = () => {
     const [error, setError] = useState(null);
 
     // Base URL for your API
-    const API_BASE_URL = 'http://backend.goodong.id/api';
+    const API_BASE_URL = 'https://backend.goodong.id/api';
 
     useEffect(() => {
         fetchRecentActivities();
