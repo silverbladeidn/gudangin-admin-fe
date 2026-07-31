@@ -120,7 +120,7 @@ const UpdateInventory = () => {
             setLoadingCategories(true);
             const token = localStorage.getItem('auth_token');
 
-            const response = await fetch('http://127.0.0.1:8000/api/categories', {
+            const response = await fetch('http://backend.goodong.id/api/categories', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -135,7 +135,7 @@ const UpdateInventory = () => {
                     return;
                 }
                 // Try fallback endpoint
-                const fallbackResponse = await fetch('http://127.0.0.1:8000/api/products/categories', {
+                const fallbackResponse = await fetch('http://backend.goodong.id/api/products/categories', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,

@@ -27,7 +27,7 @@ const Users = () => {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://127.0.0.1:8000/api/users');
+            const response = await axios.get('http://backend.goodong.id/api/users');
 
             if (response.data && response.data.success) {
                 const usersData = response.data.data || [];

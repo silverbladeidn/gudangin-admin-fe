@@ -28,11 +28,11 @@ const AddUser = () => {
         const fetchData = async () => {
             try {
                 // Load roles
-                const rolesResponse = await axios.get('http://127.0.0.1:8000/api/roles');
+                const rolesResponse = await axios.get('http://backend.goodong.id/api/roles');
                 setRoles(rolesResponse.data);
 
                 // Load permissions
-                const permsResponse = await axios.get('http://127.0.0.1:8000/api/permissions');
+                const permsResponse = await axios.get('http://backend.goodong.id/api/permissions');
                 setPermissions(permsResponse.data.data || permsResponse.data);
             } catch (err) {
                 console.error('Gagal memuat data:', err);
@@ -147,7 +147,7 @@ const AddUser = () => {
             };
 
             const res = await axios.post(
-                'http://127.0.0.1:8000/api/users',
+                'http://backend.goodong.id/api/users',
                 payload,
                 {
                     headers: {

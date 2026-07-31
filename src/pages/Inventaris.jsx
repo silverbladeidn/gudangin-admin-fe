@@ -27,7 +27,7 @@ const Inventaris = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://127.0.0.1:8000/api/products");
+      const response = await axios.get("http://backend.goodong.id/api/products");
       console.log("API result:", response.data);
 
       if (Array.isArray(response.data.data?.data)) {
@@ -58,7 +58,7 @@ const Inventaris = () => {
       }
 
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/item-requests",
+        "http://backend.goodong.id/api/item-requests",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -201,7 +201,7 @@ const Inventaris = () => {
       }
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/item-requests",
+        "http://backend.goodong.id/api/item-requests",
         requestData,
         {
           headers: {

@@ -252,7 +252,7 @@ const ApprovalNote = () => {
             const token = localStorage.getItem('auth_token') || localStorage.getItem('token');
 
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/item-requests/${requestId}/approve`,
+                `http://backend.goodong.id/api/item-requests/${requestId}/approve`,
                 {},
                 {
                     headers: {
@@ -281,7 +281,7 @@ const ApprovalNote = () => {
             const token = localStorage.getItem('auth_token') || localStorage.getItem('token');
 
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/item-requests/${requestId}/partial-approve`,
+                `http://backend.goodong.id/api/item-requests/${requestId}/partial-approve`,
                 {},
                 {
                     headers: {
@@ -312,7 +312,7 @@ const ApprovalNote = () => {
             const note = prompt('Masukkan alasan penolakan:') || 'Request ditolak';
 
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/item-requests/${requestId}/reject`,
+                `http://backend.goodong.id/api/item-requests/${requestId}/reject`,
                 {
                     note: note // Sesuai dengan input('note') di backend
                 },

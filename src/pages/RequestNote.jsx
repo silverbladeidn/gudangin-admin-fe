@@ -101,7 +101,7 @@ const RequestNote = () => {
         const fetchProducts = async () => {
             try {
                 const token = localStorage.getItem('auth_token') || localStorage.getItem('token');
-                const res = await axios.get("http://127.0.0.1:8000/api/products", {
+                const res = await axios.get("http://backend.goodong.id/api/products", {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -264,7 +264,7 @@ const RequestNote = () => {
         try {
             const token = localStorage.getItem('auth_token') || localStorage.getItem('token');
             const response = await axios.get(
-                `http://127.0.0.1:8000/api/item-requests/${requestId}`,
+                `http://backend.goodong.id/api/item-requests/${requestId}`,
                 { headers: { 'Authorization': `Bearer ${token}` } }
             );
 
@@ -317,7 +317,7 @@ const RequestNote = () => {
         try {
             const token = localStorage.getItem('auth_token') || localStorage.getItem('token');
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/item-requests/${requestId}/cancel`,
+                `http://backend.goodong.id/api/item-requests/${requestId}/cancel`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -370,7 +370,7 @@ const RequestNote = () => {
             };
 
             const response = await axios.put(
-                `http://127.0.0.1:8000/api/item-requests/${updateId}`,
+                `http://backend.goodong.id/api/item-requests/${updateId}`,
                 payload,
                 {
                     headers: {
@@ -442,7 +442,7 @@ const RequestNote = () => {
             };
 
             const updateResponse = await axios.put(
-                `http://127.0.0.1:8000/api/item-requests/${updateId}`,
+                `http://backend.goodong.id/api/item-requests/${updateId}`,
                 updatePayload,
                 {
                     headers: {
@@ -455,7 +455,7 @@ const RequestNote = () => {
             if (updateResponse.data.success) {
                 // 2. SETELAH UPDATE BERHASIL, SUBMIT menggunakan POST /submit
                 const submitResponse = await axios.post(
-                    `http://127.0.0.1:8000/api/item-requests/${updateId}/submit`,
+                    `http://backend.goodong.id/api/item-requests/${updateId}/submit`,
                     {},
                     {
                         headers: {

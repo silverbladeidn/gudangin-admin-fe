@@ -29,11 +29,11 @@ const UpdateUser = () => {
         const fetchData = async () => {
             try {
                 // Load roles
-                const rolesResponse = await axios.get('http://127.0.0.1:8000/api/roles');
+                const rolesResponse = await axios.get('http://backend.goodong.id/api/roles');
                 setRoles(rolesResponse.data);
 
                 // Load permissions
-                const permsResponse = await axios.get('http://127.0.0.1:8000/api/permissions');
+                const permsResponse = await axios.get('http://backend.goodong.id/api/permissions');
                 setPermissions(permsResponse.data.data || permsResponse.data);
 
                 // Load user data
@@ -54,7 +54,7 @@ const UpdateUser = () => {
             if (!token) throw new Error('Token autentikasi tidak ditemukan');
 
             const response = await axios.get(
-                `http://127.0.0.1:8000/api/users/${id}`,
+                `http://backend.goodong.id/api/users/${id}`,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -203,7 +203,7 @@ const UpdateUser = () => {
             console.log('Update payload:', payload);
 
             const response = await axios.put(
-                `http://127.0.0.1:8000/api/users/${id}`,
+                `http://backend.goodong.id/api/users/${id}`,
                 payload,
                 {
                     headers: {

@@ -112,7 +112,7 @@ const UpdateStockInventory = () => {
             console.log('Sending stock update:', payload);
 
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/products/${product.id}/update-stock`,
+                `http://backend.goodong.id/api/products/${product.id}/update-stock`,
                 payload,
                 {
                     headers: {
