@@ -72,7 +72,7 @@ const RequestNote = () => {
             if (filterStatus !== 'all') params.status = filterStatus;
             if (searchQuery.trim()) params.search = searchQuery.trim();
 
-            const response = await axios.get(`http://127.0.0.1:8000/api/item-requests`, {
+            const response = await axios.get(`http://backend.goodong.id/api/item-requests`, {
                 params,
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -286,7 +286,7 @@ const RequestNote = () => {
             const token = localStorage.getItem('auth_token') || localStorage.getItem('token');
 
             // Fetch request detail untuk mendapatkan data lengkap
-            const res = await axios.get(`http://127.0.0.1:8000/api/item-requests/${requestId}`, {
+            const res = await axios.get(`http://backend.goodong.id/api/item-requests/${requestId}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 

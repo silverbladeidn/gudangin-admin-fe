@@ -55,7 +55,7 @@ const UpdateInventory = () => {
             setLoading(true);
             const token = localStorage.getItem('auth_token');
 
-            const response = await fetch(`http://127.0.0.1:8000/api/products/${id}`, {
+            const response = await fetch(`http://backend.goodong.id/api/products/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -99,7 +99,7 @@ const UpdateInventory = () => {
             if (product.images) {
                 const imageUrl = product.images.startsWith('http')
                     ? product.images
-                    : `http://127.0.0.1:8000/storage/${product.images}`;
+                    : `http://backend.goodong.id/storage/${product.images}`;
                 setCurrentImage(imageUrl);
                 setImagePreview(imageUrl);
             }

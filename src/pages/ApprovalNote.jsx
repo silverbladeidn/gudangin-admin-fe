@@ -59,7 +59,7 @@ const ApprovalNote = () => {
             if (filterStatus !== 'all') params.status = filterStatus;
             if (searchQuery.trim()) params.search = searchQuery.trim();
 
-            const response = await axios.get(`http://127.0.0.1:8000/api/approval-lists`, {
+            const response = await axios.get(`http://backend.goodong.id/api/approval-lists`, {
                 params,
                 headers: { 'Authorization': `Bearer ${token}` }
             });

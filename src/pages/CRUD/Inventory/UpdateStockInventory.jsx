@@ -33,7 +33,7 @@ const UpdateStockInventory = () => {
         const fetchProduct = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
+                const response = await axios.get(`http://backend.goodong.id/api/products/${id}`);
                 setProduct(response.data.data || response.data);
             } catch (error) {
                 console.error('Error fetching product:', error);

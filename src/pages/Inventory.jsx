@@ -75,7 +75,7 @@ const Inventory = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/products");
+      const response = await api.get("/api/products");
       console.log("API result:", response.data);
 
       // Jika pakai pagination
@@ -244,7 +244,7 @@ const Inventory = () => {
         );
 
         // Panggil API
-        await api.delete(`/products/${productId}`);
+        await api.delete(`/api/products/${productId}`);
       } catch (error) {
         // Jika gagal, kembalikan state ke sebelumnya
         console.error("Error deleting product:", error);

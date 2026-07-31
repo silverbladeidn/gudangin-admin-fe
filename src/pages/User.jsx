@@ -106,7 +106,7 @@ const Users = () => {
                 setUsers(users.filter(user => user.id !== userId));
 
                 // Panggil API
-                await axios.delete(`http://127.0.0.1:8000/api/users/${userId}`);
+                await axios.delete(`http://backend.goodong.id/api/users/${userId}`);
 
             } catch (error) {
                 // Jika gagal, kembalikan state ke sebelumnya
@@ -146,7 +146,7 @@ const Users = () => {
                 ));
 
                 // Panggil API dengan data yang sesuai backend
-                const response = await axios.patch(`http://127.0.0.1:8000/api/users/${userId}/block-status`, {
+                const response = await axios.patch(`http://backend.goodong.id/api/users/${userId}/block-status`, {
                     is_blocked: newBlockStatus
                 });
 
