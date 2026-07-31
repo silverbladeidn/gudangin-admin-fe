@@ -296,7 +296,7 @@ const UpdateInventory = () => {
                 console.log(`${key}:`, value);
             }
 
-            const response = await fetch(`http://127.0.0.1:8000/api/products/${id}`, {
+            const response = await fetch(`http://backend.goodong.id/api/products/${id}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
