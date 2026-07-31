@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
             console.log('Fetching user data for ID:', userId);
 
             // 1. Get user basic info
-            const userResponse = await axios.get(`http://backend.goodong.id/api/users/${userId}`, {
+            const userResponse = await axios.get(`https://backend.goodong.id/api/users/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Accept': 'application/json'
@@ -76,7 +76,7 @@ const Layout = ({ children }) => {
 
             try {
                 // Coba endpoint yang lebih sederhana
-                const permResponse = await axios.get(`http://backend.goodong.id/api/users/${userId}/permissions`, {
+                const permResponse = await axios.get(`https://backend.goodong.id/api/users/${userId}/permissions`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
