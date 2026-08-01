@@ -48,7 +48,7 @@ const Inventory = () => {
       let objectUrl;
       const loadBarcode = async () => {
         try {
-          const res = await fetch(`${API_URL}/products/${productId}/barcode`, {
+          const res = await fetch(`${API_URL}/api/products/${productId}/barcode`, {
             headers: { "ngrok-skip-browser-warning": "true" },
           });
           if (!res.ok) throw new Error("Failed");

@@ -118,106 +118,39 @@ const StockNote = () => {
     // Export to Excel
     const exportToExcel = async () => {
         try {
-            const workbook = new ExcelJS.Workbook();
-            const worksheet = workbook.addWorksheet('Catatan Stok');
-
-            // Add headers
-            const headers = ['ID', 'Nama Produk', 'SKU', 'Tipe', 'Kuantitas', 'Jumlah Stok Sebelum', 'Jumlah Stok Sesudah', 'Catatan', 'Tanggal'];
-            worksheet.addRow(headers);
-
-            // Add data
-            filteredItems.forEach(item => {
-                worksheet.addRow([
-                    item.id,
-                    item.product?.name || 'Unknown Product',
-                    item.type,
-                    item.quantity,
-                    item.previous_stock,
-                    item.current_stock,
-                    item.reference || '-',
-                    new Date(item.created_at).toLocaleDateString()
-                ]);
+            const respond = await axios.get('https://backend.goodong.id/api/stockmovement/export/excel', {
+                responseType: 'blob', // Important for binary data
             });
 
-            // Generate and download
-            const buffer = await workbook.xlsx.writeBuffer();
-            const blob = new Blob([buffer], {
-                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-            });
-
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', `stock_movements_${new Date().toISOString().slice(0, 10)}.xlsx`);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
+            const blob = new Blob([respond.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
         } catch (error) {
-            console.error('Error exporting to Excel:', error);
             alert('Failed to export Excel file');
         }
     };
 
     // Export to PDF
-    const exportToPDF = () => {
+    const exportToPDF = async () => {
         try {
-            const doc = new jsPDF();
-
-            // Title
-            doc.setFontSize(18);
-            doc.setFont('helvetica', 'bold');
-            doc.text('Stock Movement Report', 14, 20);
-
-            // Date
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 30);
-
-            // Table data
-            const tableColumns = ['ID', 'Product', 'Type', 'Qty', 'Prev Stock', 'Current Stock', 'Date'];
-            const tableRows = filteredItems.map(item => [
-                item.id,
-                item.product?.name || 'Unknown',
-                item.type,
-                item.quantity,
-                item.previous_stock,
-                item.current_stock,
-                new Date(item.created_at).toLocaleDateString()
-            ]);
-
-            // Generate table
-            autoTable(doc, {
-                head: [tableColumns],
-                body: tableRows,
-                startY: 40,
-                styles: {
-                    fontSize: 8,
-                    cellPadding: 2,
-                },
-                headStyles: {
-                    fillColor: [230, 230, 250],
-                    textColor: [0, 0, 0],
-                    fontStyle: 'bold'
-                },
-                alternateRowStyles: {
-                    fillColor: [245, 245, 245]
-                },
-                columnStyles: {
-                    0: { cellWidth: 15 },
-                    1: { cellWidth: 35 },
-                    2: { cellWidth: 20 },
-                    3: { cellWidth: 15 },
-                    4: { cellWidth: 20 },
-                    5: { cellWidth: 20 },
-                    6: { cellWidth: 25 }
-                }
+            const respond = await axios.get('https://backend.goodong.id/api/stockmovement/export/pdf', {
+                responseType: 'blob', 
             });
 
-            doc.save(`stock_movements_${new Date().toISOString().slice(0, 10)}.pdf`);
+            const blob = new Blob([respond.data], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
         } catch (error) {
-            console.error('Error exporting to PDF:', error);
             alert('Failed to export PDF file');
         }
     };
